@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>jar</packaging>
   <groupId>com.openkm</groupId>
-  <artifactId>control-time</artifactId>
+  <artifactId>time-control</artifactId>
   <version>1.0</version>
 
   <scm>
@@ -129,7 +129,7 @@
     <profile>
       <id>Time-control-jar-build</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <activeByDefault>true</activeByDefault>
         <property>
           <name>build</name>
           <value>jar</value>
