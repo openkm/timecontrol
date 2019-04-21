@@ -129,7 +129,7 @@
     <profile>
       <id>Time-control-jar-build</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <activeByDefault>true</activeByDefault>
         <property>
           <name>build</name>
           <value>jar</value>
