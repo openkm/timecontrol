@@ -20,7 +20,7 @@ INSERT INTO OKM_CONFIG (CFG_KEY, CFG_TYPE, CFG_VALUE) VALUES ('time.control.fold
 INSERT INTO OKM_CONFIG (CFG_KEY, CFG_TYPE, CFG_VALUE) VALUES ('time.control.date.format','string','dd/MM/yyyy');
 ```
 
-6) Download the latest Time-control-1.0.jar from [releases github section](https://github.com/openkm/timecontrol/releases) and copy into your $TOMCAT_HOME/plugins folder
+6) Download the latest control-time-1.0.jar from [releases github section](https://github.com/openkm/timecontrol/releases) and copy into your $TOMCAT_HOME/plugins folder
 
 7) Restart OpenKM
 
