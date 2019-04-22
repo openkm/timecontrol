@@ -5,7 +5,7 @@
   <packaging>jar</packaging>
   <groupId>com.openkm</groupId>
   <artifactId>time-control</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 
   <scm>
     <connection>scm:git:git@github.com:openkm/timecontrol.git</connection>
@@ -112,13 +112,6 @@
               <roots>
                 <root>src/main/java</root>
               </roots>
-              <excludes>
-                <exclude>**/kea/filter/**</exclude>
-                <exclude>**/kea/stemmers/**</exclude>
-                <exclude>**/kea/stopwords/**</exclude>
-                <exclude>**/kea/util/**</exclude>
-                <exclude>**/kea/vocab/**</exclude>
-              </excludes>
             </configuration>
           </execution>
         </executions>
