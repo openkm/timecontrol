@@ -33,6 +33,7 @@ import com.openkm.dao.ConfigDAO;
 import com.openkm.dao.bean.Automation;
 import com.openkm.module.db.stuff.DbSessionManager;
 import com.openkm.util.PathUtils;
+import com.openkm.util.UserActivity;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 import org.apache.commons.io.IOUtils;
 
@@ -82,14 +83,13 @@ public class TimeControl implements Action {
 		Document document = null;
 
 		try {
-			String systemToken = DbSessionManager.getInstance().getSystemToken();
-			String controlDocPath = getControlDocPath(systemToken, env);
-			document = OKMDocument.getInstance().getProperties(systemToken, controlDocPath);
+			String controlDocPath = getControlDocPath(null, env);
+			document = OKMDocument.getInstance().getProperties(null, controlDocPath);
 
 			String logoutId = logoutIdFormat.format(new Date());
 
 			// Get content of the file to be able to modify it
-			is = OKMDocument.getInstance().getContent(systemToken, document.getUuid(), false);
+			is = OKMDocument.getInstance().getContent(null, document.getUuid(), false);
 			if (is != null) {
 				String body = IOUtils.toString(is, StandardCharsets.UTF_8);
 				if (body.contains("<td id='logout-" + logoutId + "'>")) {
@@ -99,8 +99,8 @@ public class TimeControl implements Action {
 					// Upload new document
 					is.close();
 					is = new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8));
-					OKMDocument.getInstance().checkout(systemToken, document.getUuid());
-					OKMDocument.getInstance().checkin(systemToken, document.getUuid(), is, "");
+					OKMDocument.getInstance().checkout(null, document.getUuid());
+					OKMDocument.getInstance().checkin(null, document.getUuid(), is, "");
 					is.close();
 				}
 			}
@@ -117,6 +117,7 @@ public class TimeControl implements Action {
 	public void executePost(Map<String, Object> env, Object... params) throws Exception {
 		InputStream is = null;
 		Document document = null;
+		String userId = AutomationUtils.getUser(env);
 
 		try {
 			String systemToken = DbSessionManager.getInstance().getSystemToken();
@@ -155,6 +156,9 @@ public class TimeControl implements Action {
 						is = new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8));
 						OKMDocument.getInstance().checkout(systemToken, document.getUuid());
 						OKMDocument.getInstance().checkin(systemToken, document.getUuid(), is, "");
+						document = OKMDocument.getInstance().getProperties(systemToken, document.getUuid());
+						// Activity log
+						UserActivity.log(userId, "CHECKIN_DOCUMENT", document.getUuid(), document.getPath(), document.getActualVersion().getSize() + ", Modified by user system in name of " + userId);
 						is.close();
 					}
 				}
