@@ -1,5 +1,5 @@
-# timecontrol
-Time crontol sample - Ejemplo de control horario 
+# Time Control
+It is ***required OpenKM version 6.3.8 or upper*** to get this feature working.
 
 1) Upload the control-time.html to /okm:templates OpenKM 
 
